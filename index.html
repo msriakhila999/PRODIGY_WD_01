@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Navigation Menu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="statusBadge">Not scrolled — nav transparent</div>
+
+  <nav id="mainNav" aria-label="Main navigation">
+    <a href="#home" class="nav-logo">st<em>u</em>dio</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-right" id="navRight">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get in touch</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <p class="hero-label">↓ Scroll down to see the nav change colour</p>
+    <h1>Design that <em>moves</em> people forward</h1>
+    <p>Scroll down — the nav background goes dark and link text turns light. Hover any menu link — it turns red instantly.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">See our work</a>
+      <a href="#about" class="btn-ghost">Learn more</a>
+    </div>
+    <div class="scroll-hint">Scroll to explore</div>
+  </section>
+
+  <section id="about">
+    <div class="divider"></div>
+    <h2>Crafted with <em>intention</em></h2>
+    <p>We believe great design is invisible — it guides without forcing, delights without distracting.</p>
+    <p>Our small team works closely with founders and product teams to ship interfaces that hold up over time.</p>
+    <div class="card-grid">
+      <div class="card"><div class="card-num">01</div><h3>Strategy first</h3><p>We start by understanding your goals before touching a design tool.</p></div>
+      <div class="card"><div class="card-num">02</div><h3>Design with code</h3><p>Prototypes in the browser from day one — no surprises in handoff.</p></div>
+      <div class="card"><div class="card-num">03</div><h3>Built to last</h3><p>Clean, documented, maintainable — your team can own it long after we ship.</p></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="divider"></div>
+    <h2>Selected <em>work</em></h2>
+    <p>A handful of projects from the past few years — brand systems, product interfaces, and interactive experiences.</p>
+    <div class="card-grid">
+      <div class="card"><div class="card-num">→</div><h3>Meridian App</h3><p>End-to-end product design for a B2B analytics platform serving 40k users.</p></div>
+      <div class="card"><div class="card-num">→</div><h3>Folio CMS</h3><p>Headless content system with a custom editorial interface built for speed.</p></div>
+      <div class="card"><div class="card-num">→</div><h3>Wren Brand</h3><p>Identity, motion, and digital presence for a sustainable fashion label.</p></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="divider"></div>
+    <h2>Let's build something <em>together</em></h2>
+    <p>Whether you have a brief or just a spark of an idea — we'd love to hear from you.</p>
+    <div class="hero-cta">
+      <a href="mailto:hello@studio.com" class="btn-primary">hello@studio.com</a>
+    </div>
+  </section>
+
+  <footer>&copy; 2024 Studio. All rights reserved.</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

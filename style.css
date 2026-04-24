@@ -1,0 +1,296 @@
+/* ── RESET & VARIABLES ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --nav-height: 64px;
+  --accent:     #C1502E;
+  --bg:         #FAF8F5;
+  --text:       #1A1714;
+  --muted:      #7A746D;
+  --border:     rgba(26, 23, 20, 0.1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  background: transparent;               /* default: see-through */
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.4s ease, 
+              border-color 0.4s ease, 
+              backdrop-filter 0.4s ease;
+}
+
+/* SCROLL STATE — nav background goes dark */
+nav.scrolled {
+  /* background color is now handled by JavaScript for enhanced interactivity */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── LOGO ── */
+.nav-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  text-decoration: none;
+  letter-spacing: -0.3px;
+  color: #1A1714;                        /* default: dark */
+  transition: color 0.35s ease;
+}
+/* scrolled color handled by JS */
+.nav-logo em { font-style: italic; color: var(--accent); }
+
+/* ── NAV LINKS ── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #1A1714;                        /* default: dark text */
+  background: transparent;
+  transition: color 0.25s ease, background 0.25s ease;
+}
+
+/* Scrolled links color handled by JS */
+
+/* HOVER: Handled by JavaScript to satisfy interactivity requirements */
+
+/* ACTIVE: same vivid style, persists */
+.nav-links a.active {
+  background: #C1502E;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* ── CTA BUTTON ── */
+.nav-cta {
+  margin-left: 14px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: #a8442a; transform: translateY(-1px); }
+
+/* ── MOBILE HAMBURGER ── */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px; height: 1.5px;
+  background: var(--text);
+  transition: transform 0.3s, opacity 0.3s, background 0.35s;
+}
+nav.scrolled .nav-toggle span        { background: #fff; }
+.nav-toggle.open span:nth-child(1)   { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2)   { opacity: 0; }
+.nav-toggle.open span:nth-child(3)   { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── MOBILE LAYOUT ── */
+@media (max-width: 680px) {
+  nav { padding: 0 20px; }
+  .nav-toggle { display: flex; }
+  .nav-right {
+    position: fixed;
+    top: var(--nav-height); left: 0; right: 0;
+    background: #1A1714;
+    padding: 16px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transform: translateY(-110%);
+    opacity: 0;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+  .nav-right.open  { transform: translateY(0); opacity: 1; }
+  .nav-links       { flex-direction: column; width: 100%; }
+  .nav-links a     { width: 100%; color: #a09890; }
+  .nav-cta         { margin: 16px 0 0; width: 100%; text-align: center; }
+}
+
+/* ── STATUS BADGE ── */
+#statusBadge {
+  position: fixed;
+  top: calc(var(--nav-height) + 12px);
+  right: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 99px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+  transition: background 0.35s, color 0.35s, border-color 0.35s;
+  pointer-events: none;
+  z-index: 999;
+}
+#statusBadge.scrolled {
+  background: #1A1714;
+  color: #C1502E;
+  border-color: #C1502E;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 80% 20%, rgba(193,80,46,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 20% 80%, rgba(193,80,46,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.7s ease 0.1s forwards;
+}
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 1.05; letter-spacing: -1.5px; max-width: 700px;
+  opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero p {
+  margin-top: 28px; font-size: 17px; line-height: 1.7;
+  color: var(--muted); max-width: 500px; font-weight: 300;
+  opacity: 0; animation: fadeUp 0.7s ease 0.35s forwards;
+}
+.hero-cta {
+  margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.7s ease 0.5s forwards;
+}
+.scroll-hint {
+  position: absolute; bottom: 40px; left: 40px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+  opacity: 0; animation: fadeUp 0.7s ease 0.8s forwards;
+}
+.scroll-hint::before {
+  content: ''; display: block; width: 1px; height: 32px;
+  background: var(--muted); animation: scrollLine 1.5s ease-in-out infinite;
+}
+
+/* ── BUTTONS ── */
+.btn-primary {
+  padding: 13px 28px; font-size: 14px; font-weight: 500;
+  font-family: 'DM Sans', sans-serif; color: #fff;
+  background: var(--accent); border: none; border-radius: 6px;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-primary:hover { background: #a8442a; transform: translateY(-1px); }
+.btn-ghost {
+  padding: 13px 28px; font-size: 14px; font-weight: 400;
+  font-family: 'DM Sans', sans-serif; color: var(--text);
+  border: 1px solid var(--border); border-radius: 6px;
+  cursor: pointer; text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── SECTIONS ── */
+section {
+  padding: 100px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+section h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  letter-spacing: -0.8px; line-height: 1.1; margin-bottom: 20px;
+}
+section h2 em { font-style: italic; color: var(--accent); }
+section p {
+  font-size: 16px; line-height: 1.75; color: var(--muted);
+  font-weight: 300; max-width: 600px; margin-bottom: 16px;
+}
+
+/* ── DIVIDER ── */
+.divider { width: 40px; height: 1px; background: var(--accent); margin: 0 auto 60px; opacity: 0.4; }
+
+/* ── CARDS ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px; margin-top: 40px;
+}
+.card {
+  padding: 28px 24px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 36px; color: var(--accent); opacity: 0.4; line-height: 1; margin-bottom: 12px;
+}
+.card h3 { font-size: 15px; font-weight: 500; margin-bottom: 8px; }
+.card p  { font-size: 13px; line-height: 1.6; color: var(--muted); margin: 0; }
+
+/* ── FOOTER ── */
+footer {
+  text-align: center; padding: 40px;
+  font-size: 13px; color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollLine {
+  0%, 100% { transform: scaleY(1);   opacity: 0.4; }
+  50%       { transform: scaleY(0.4); opacity: 1; }
+}
